@@ -5,16 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aman Khan - Software Engineer</title>
-    <!-- Adding Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Adding Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
-        /* Reset and Base Styles */
-        * {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -22,50 +18,74 @@
         }
 
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --text-color: #1f2937;
+            --primary: #2563eb;
+            --primary2: #3b82f6;
+            --accent: #5b21b6;
+            --dark: #1f2937;
             --light-bg: #f3f4f6;
-            --gradient-start: #2563eb;
-            --gradient-end: #3b82f6;
-            --accent-color: #5b21b6;
-            --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            --transition-speed: 0.4s;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --speed: 0.4s;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            line-height: 1.5;
-            color: var(--text-color);
-            background-color: #fafafa;
+            line-height: 1.6;
+            color: var(--dark);
+            background: #fafafa;
             overflow-x: hidden;
         }
 
-        /* Animated Background */
+        ::-webkit-scrollbar {
+            width: 7px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--primary2));
+            border-radius: 4px
+        }
+
+        /* SVG ICON HELPER */
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon svg {
+            display: block;
+        }
+
+        /* BG ANIMATION */
         .bg-animation {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: -1;
-            opacity: 0.4;
-            pointer-events: none;
+            opacity: .35;
+            pointer-events: none
         }
 
         .bg-animation span {
             position: absolute;
             width: 80px;
             height: 80px;
-            border: 2px solid var(--primary-color);
+            border: 2px solid var(--primary);
             border-radius: 50%;
-            animation: animate 10s linear infinite;
-            opacity: 0;
+            animation: bgPulse 10s linear infinite;
+            opacity: 0
         }
 
         .bg-animation span:nth-child(1) {
             top: 20%;
             left: 20%;
-            animation-delay: 0s;
+            animation-delay: 0s
         }
 
         .bg-animation span:nth-child(2) {
@@ -73,7 +93,7 @@
             left: 80%;
             animation-delay: 2s;
             width: 60px;
-            height: 60px;
+            height: 60px
         }
 
         .bg-animation span:nth-child(3) {
@@ -81,7 +101,7 @@
             left: 40%;
             animation-delay: 4s;
             width: 120px;
-            height: 120px;
+            height: 120px
         }
 
         .bg-animation span:nth-child(4) {
@@ -89,58 +109,43 @@
             left: 30%;
             animation-delay: 6s;
             width: 100px;
-            height: 100px;
+            height: 100px
         }
 
         .bg-animation span:nth-child(5) {
             top: 10%;
             left: 70%;
-            animation-delay: 8s;
+            animation-delay: 8s
         }
 
-        @keyframes animate {
+        @keyframes bgPulse {
             0% {
                 transform: scale(0);
-                opacity: 0.8;
-                transform-origin: center;
+                opacity: .7
             }
 
             100% {
                 transform: scale(5);
-                opacity: 0;
-                transform-origin: center;
+                opacity: 0
             }
         }
 
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--light-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--gradient-start), var(--gradient-end));
-            border-radius: 4px;
-        }
-
-        /* Navigation */
+        /* NAVBAR */
         .navbar {
             position: fixed;
+            top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, .96);
+            padding: 1.1rem 2rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
+            backdrop-filter: blur(12px);
             z-index: 1000;
-            transition: all 0.4s ease;
+            transition: padding .3s, background .3s
         }
 
         .navbar.scrolled {
-            padding: 0.7rem 1rem;
-            background: rgba(255, 255, 255, 0.98);
+            padding: .7rem 2rem;
+            background: rgba(255, 255, 255, .99)
         }
 
         .nav-content {
@@ -148,147 +153,226 @@
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: center
         }
 
         .logo {
             font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo::before {
-            content: "AK";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--gradient-start), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: blur(4px);
-            opacity: 0.4;
+            background-clip: text;
+            user-select: none
         }
 
         .nav-links {
             display: flex;
             gap: 2.5rem;
+            list-style: none
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-color);
+            color: var(--dark);
             font-weight: 500;
-            transition: all 0.3s;
+            font-size: .95rem;
             position: relative;
-            padding: 0.3rem 0;
+            padding-bottom: 4px;
+            transition: color .3s
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
             bottom: 0;
             left: 0;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-            transition: width 0.3s;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             border-radius: 2px;
+            transition: width .3s
+        }
+
+        .nav-links a:hover {
+            color: var(--primary)
         }
 
         .nav-links a:hover::after {
-            width: 100%;
+            width: 100%
         }
 
         .menu-btn {
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--primary-color);
+            color: var(--primary);
+            background: none;
+            border: none;
+            line-height: 1;
+            padding: 4px
         }
 
-        /* Hero Section */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .3);
+            z-index: 998
+        }
+
+        .nav-overlay.show {
+            display: block
+        }
+
+        /* HERO */
         .hero {
-            padding: 5rem 2rem 8rem;
+            padding: 9rem 2rem 7rem;
             background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
-            z-index: 1;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(37, 99, 235, .07), rgba(59, 130, 246, .07));
+            pointer-events: none
         }
 
         .hero-container {
             max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
             position: relative;
-            z-index: 1;
+            z-index: 1
         }
 
         .hero-content {
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp .9s ease-out both
         }
 
+        .hero h1 {
+            font-size: 3.6rem;
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .hero h1 .underline-bar {
+            display: block;
+            width: 42%;
+            height: 5px;
+            margin-top: 10px;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
+            border-radius: 5px
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #4b5563;
+            max-width: 560px;
+            margin-top: 1rem;
+            line-height: 1.8
+        }
+
+        .hero-tags {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .8rem
+        }
+
+        .hero-tag {
+            background: rgba(37, 99, 235, .09);
+            padding: .5rem 1.3rem;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            font-weight: 500;
+            font-size: .9rem;
+            color: var(--primary)
+        }
+
+        .hero-cta {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        .hero-button {
+            padding: .8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            transition: transform .3s, box-shadow .3s;
+            font-size: .95rem
+        }
+
+        .primary-btn {
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
+            color: white;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, .3)
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(37, 99, 235, .42)
+        }
+
+        .secondary-btn {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary)
+        }
+
+        .secondary-btn:hover {
+            background: rgba(37, 99, 235, .05);
+            transform: translateY(-3px)
+        }
+
+        /* PROFILE */
         .hero-image {
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: fadeInRight 1s ease-out;
+            animation: fadeInLeft .9s ease-out both
+        }
+
+        .profile-img-wrap {
+            position: relative;
+            width: 360px;
+            height: 360px
         }
 
         .profile-img-container {
-            position: relative;
-            width: 360px;
-            height: 360px;
+            width: 100%;
+            height: 100%;
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             padding: 5px;
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, .3);
             animation: morphing 15s ease-in-out infinite;
             overflow: hidden;
             display: flex;
             justify-content: center;
-            align-items: center;
-        }
-
-        @keyframes morphing {
-            0% {
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            }
-
-            25% {
-                border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
-            }
-
-            50% {
-                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
-            }
-
-            75% {
-                border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
-            }
-
-            100% {
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            }
+            align-items: center
         }
 
         .profile-img {
@@ -296,139 +380,133 @@
             height: 100%;
             object-fit: cover;
             border-radius: inherit;
-            background-color: #fff;
+            background: #dbeafe
         }
 
-        .profile-img-background {
+        .profile-img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-radius: inherit;
+            color: var(--primary)
+        }
+
+        .profile-img-placeholder svg {
+            opacity: .45
+        }
+
+        .profile-img-placeholder span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: .5rem;
+            opacity: .6
+        }
+
+        .profile-glow {
             position: absolute;
-            width: 380px;
-            height: 380px;
-            background: linear-gradient(45deg, var(--gradient-start), var(--accent-color));
+            inset: -10px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
             filter: blur(30px);
-            opacity: 0.3;
+            opacity: .2;
             z-index: -1;
             animation: morphing 15s ease-in-out infinite;
-            animation-delay: 1s;
+            animation-delay: 1s
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            display: inline-block;
+        @keyframes morphing {
+            0% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%
+            }
+
+            25% {
+                border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%
+            }
+
+            50% {
+                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%
+            }
+
+            75% {
+                border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%
+            }
+
+            100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%
+            }
         }
 
-        .hero h1::after {
-            content: "";
-            position: absolute;
-            width: 40%;
-            height: 5px;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-            bottom: -10px;
-            left: 0;
-            border-radius: 5px;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 600px;
-            margin: 1.5rem 0 0;
-            color: var(--text-color);
-        }
-
-        .hero-tag {
-            background: rgba(37, 99, 235, 0.1);
-            padding: 0.6rem 1.5rem;
-            border-radius: 30px;
-            display: inline-flex;
-            align-items: center;
-            margin-top: 1.5rem;
-            font-weight: 500;
-        }
-
-        .hero-tag:not(:last-child) {
-            margin-right: 1rem;
-        }
-
-        .hero-tag i {
-            margin-right: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        .hero-cta {
-            margin-top: 2.5rem;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .hero-button {
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .primary-btn {
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-            color: white;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        .primary-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
-        }
-
-        .secondary-btn {
-            background: white;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-        }
-
-        .secondary-btn:hover {
-            background: rgba(37, 99, 235, 0.05);
-            transform: translateY(-3px);
-        }
-
-        /* Common Section Styles */
+        /* SECTION */
         .section {
             padding: 6rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transform: translateY(28px);
+            transition: opacity .8s ease, transform .8s ease
         }
 
         .section.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0)
         }
 
-        /* About Section */
+        .section-head {
+            text-align: center;
+            margin-bottom: 3.5rem
+        }
+
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 16px
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
+            border-radius: 4px
+        }
+
+        .section-subtitle {
+            color: #6b7280;
+            font-size: 1rem;
+            max-width: 620px;
+            margin: .8rem auto 0
+        }
+
+        /* ABOUT */
         .about-content {
             display: flex;
-            align-items: center;
             gap: 3rem;
-            margin-top: 2rem;
+            margin-top: 1rem;
+            align-items: flex-start
         }
 
         .about-text {
-            flex: 1;
+            flex: 1.2;
             background: white;
             padding: 2.5rem;
             border-radius: 16px;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow);
             position: relative;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .about-text::before {
@@ -438,59 +516,72 @@
             left: 0;
             width: 5px;
             height: 100%;
-            background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+            background: linear-gradient(to bottom, var(--primary), var(--primary2))
+        }
+
+        .about-text p {
+            color: #374151;
+            line-height: 1.9;
+            text-align: justify
+        }
+
+        .about-text p+p {
+            margin-top: 1rem
         }
 
         .about-card {
             flex: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 1.2rem
         }
 
         .about-stat {
             background: white;
-            padding: 1.5rem;
+            padding: 1.6rem 1rem;
             border-radius: 16px;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow);
             text-align: center;
-            transition: transform var(--transition-speed);
+            transition: transform var(--speed), box-shadow var(--speed)
         }
 
         .about-stat:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, .1)
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            line-height: 1.2;
+            margin-bottom: .4rem;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-color);
+            font-size: .85rem;
+            color: #6b7280;
+            font-weight: 500
         }
 
-        /* Skills Section */
+        /* SKILLS */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2rem
         }
 
         .skill-category {
             background: white;
             padding: 2rem;
             border-radius: 16px;
-            box-shadow: var(--card-shadow);
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
+            transition: transform var(--speed), box-shadow var(--speed)
         }
 
         .skill-category::before {
@@ -499,406 +590,419 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--primary2))
         }
 
         .skill-category:hover {
             transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, .1)
         }
 
         .skill-header {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
-            margin-bottom: 1.8rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem
         }
 
         .skill-icon {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 16px;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 14px;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             color: white;
-            font-size: 1.8rem;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, .25)
+        }
+
+        .skill-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600
         }
 
         .skill-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem;
+            gap: .8rem;
+            margin-bottom: 1.5rem
         }
 
         .skill-tag {
             background: var(--light-bg);
-            padding: 0.6rem 1.2rem;
+            padding: .45rem 1rem;
             border-radius: 30px;
-            font-size: 0.95rem;
+            font-size: .88rem;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            transition: all var(--transition-speed);
-            cursor: default;
+            gap: .5rem;
+            transition: transform .2s, background .2s;
+            cursor: default
         }
 
         .skill-tag:hover {
             transform: scale(1.05);
-            background: linear-gradient(45deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
-            box-shadow: 0 3px 10px rgba(37, 99, 235, 0.1);
-        }
-
-        .skill-tag i {
-            color: var(--primary-color);
-        }
-
-        .skill-progress {
-            width: 100%;
-            margin-top: 0.5rem;
+            background: rgba(37, 99, 235, .09)
         }
 
         .progress-item {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.1rem
         }
 
         .progress-title {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+            margin-bottom: 6px;
+            font-size: .9rem;
+            font-weight: 500
         }
 
         .progress-bar {
-            height: 10px;
+            height: 9px;
             background: var(--light-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
+            border-radius: 9px;
+            overflow: hidden
         }
 
         .progress-fill {
             height: 100%;
-            border-radius: 10px;
-            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-            transition: width 1.5s ease-out;
             width: 0;
+            background: linear-gradient(to right, var(--primary), var(--primary2));
+            border-radius: 9px;
+            transition: width 1.4s cubic-bezier(.4, 0, .2, 1)
         }
 
-        /* Projects Section */
+        /* PROJECTS */
         .projects-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3rem;
+            justify-content: flex-end;
+            margin-bottom: 2.5rem
         }
 
         .projects-filter {
             display: flex;
-            gap: 1rem;
+            gap: .7rem;
+            flex-wrap: wrap
         }
 
         .filter-btn {
-            padding: 0.6rem 1.5rem;
+            padding: .5rem 1.3rem;
             border-radius: 30px;
             background: var(--light-bg);
             border: none;
             cursor: pointer;
-            transition: all 0.3s;
             font-weight: 500;
+            font-size: .9rem;
+            transition: all .25s;
+            color: var(--dark)
         }
 
-        .filter-btn.active {
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             color: white;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, .25)
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem
         }
 
         .project-card {
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-            position: relative;
+            box-shadow: var(--shadow);
+            transition: transform var(--speed), box-shadow var(--speed);
+            display: flex;
+            flex-direction: column
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-card:hover .project-image {
-            transform: scale(1.05);
+            box-shadow: 0 22px 40px rgba(0, 0, 0, .12)
         }
 
         .project-image {
-            height: 220px;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3.5rem;
-            transition: all 0.5s;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, var(--primary), var(--primary2));
+            transition: filter .4s
+        }
+
+        .project-image.green {
+            background: linear-gradient(135deg, #16a34a, #22c55e)
+        }
+
+        .project-image.purple {
+            background: linear-gradient(135deg, #6d28d9, #8b5cf6)
+        }
+
+        .project-image.teal {
+            background: linear-gradient(135deg, #0891b2, #06b6d4)
         }
 
         .project-image::after {
-            content: "";
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.1);
+            inset: 0;
+            background: rgba(0, 0, 0, .12);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity .35s
         }
 
         .project-card:hover .project-image::after {
-            opacity: 1;
+            opacity: 1
         }
 
         .project-content {
-            padding: 2.5rem;
+            padding: 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column
         }
 
         .project-title {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 1.6rem;
-            position: relative;
-            display: inline-block;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: .6rem;
+            font-weight: 600
         }
 
         .project-title a {
             text-decoration: none;
             color: inherit;
-            transition: color 0.3s;
+            transition: color .2s
         }
 
         .project-title a:hover {
-            color: var(--accent-color);
+            color: var(--accent)
+        }
+
+        .project-desc {
+            font-size: .92rem;
+            color: #6b7280;
+            line-height: 1.75;
+            flex: 1
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-top: 1.8rem;
+            gap: .6rem;
+            margin-top: 1.2rem
         }
 
         .tech-tag {
             background: var(--light-bg);
-            padding: 0.5rem 1rem;
+            padding: .35rem .85rem;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: .82rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
+            gap: .4rem;
+            transition: transform .2s
         }
 
         .tech-tag:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .tech-tag i {
-            color: var(--primary-color);
+            transform: translateY(-2px)
         }
 
         .project-links {
             display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: .8rem;
+            margin-top: 1.3rem
         }
 
         .project-link {
-            padding: 0.5rem 1rem;
+            padding: .45rem 1rem;
             border-radius: 8px;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: flex;
+            font-size: .87rem;
+            font-weight: 600;
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
+            gap: .5rem;
+            transition: transform .2s, box-shadow .2s
         }
 
         .demo-link {
-            background: var(--primary-color);
-            color: white;
+            background: var(--primary);
+            color: white
+        }
+
+        .demo-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, .38)
         }
 
         .code-link {
             background: var(--light-bg);
-            color: var(--text-color);
+            color: var(--dark)
         }
 
-        .project-link:hover {
-            transform: translateY(-3px);
+        .code-link:hover {
+            transform: translateY(-2px);
+            background: #e5e7eb
         }
 
-        /* Instagram Feed Section */
+        /* INSTAGRAM */
         .instagram-section {
             padding: 6rem 2rem;
-            background: #fff;
+            background: white
         }
 
         .instagram-content {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto
         }
 
         .instagram-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem
         }
 
         .instagram-header a {
             display: inline-flex;
             align-items: center;
+            gap: .7rem;
             text-decoration: none;
-            color: var(--text-color);
-            font-size: 1.3rem;
+            color: var(--dark);
+            font-size: 1.25rem;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: color .3s
         }
 
         .instagram-header a:hover {
-            color: var(--primary-color);
+            color: #e1306c
         }
 
-        .instagram-header i {
-            font-size: 1.8rem;
-            margin-right: 0.8rem;
+        .instagram-icon-gradient {
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            font-weight: 900
         }
 
         .instagram-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.2rem
         }
 
         .instagram-post {
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            position: relative;
             aspect-ratio: 1/1;
-            transition: all 0.3s;
+            position: relative;
+            transition: transform .3s, box-shadow .3s
         }
 
         .instagram-post:hover {
             transform: scale(1.03);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, .12)
         }
 
         .instagram-post img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: all 0.5s;
+            display: block;
+            transition: transform .5s
         }
 
         .instagram-post:hover img {
-            transform: scale(1.1);
+            transform: scale(1.08)
         }
 
         .instagram-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, .72), transparent);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity .3s;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 1.5rem;
-            color: white;
+            padding: 1.2rem;
+            color: white
         }
 
         .instagram-post:hover .instagram-overlay {
-            opacity: 1;
+            opacity: 1
         }
 
         .instagram-caption {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: .85rem;
+            margin-bottom: .5rem;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .instagram-stats {
             display: flex;
             gap: 1rem;
+            font-size: .8rem
         }
 
         .instagram-stat {
             display: flex;
             align-items: center;
-            gap: 0.3rem;
-            font-size: 0.8rem;
+            gap: .3rem
         }
 
         .instagram-view-all {
-            margin-top: 3rem;
             text-align: center;
+            margin-top: 2.5rem
         }
 
         .instagram-btn {
-            padding: 0.8rem 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .8rem 2rem;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: white;
-            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
+            box-shadow: 0 5px 15px rgba(220, 39, 67, .3);
+            transition: transform .3s, box-shadow .3s
         }
 
         .instagram-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(220, 39, 67, 0.4);
+            box-shadow: 0 8px 22px rgba(220, 39, 67, .42)
         }
 
-        /* Contact Section */
+        /* CONTACT */
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
+            gap: 2.5rem;
+            align-items: start
         }
 
         .contact-info {
             background: white;
-            padding: 3rem;
+            padding: 2.5rem;
             border-radius: 16px;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow);
             position: relative;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .contact-info::before {
@@ -908,14 +1012,25 @@
             left: 0;
             width: 5px;
             height: 100%;
-            background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+            background: linear-gradient(to bottom, var(--primary), var(--primary2))
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: .7rem
+        }
+
+        .contact-info>p {
+            color: #6b7280;
+            font-size: .95rem;
+            line-height: 1.8
         }
 
         .contact-links {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin-top: 1.5rem
         }
 
         .contact-link {
@@ -923,201 +1038,211 @@
             align-items: center;
             gap: 1rem;
             text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.3s;
-            padding: 1.2rem;
+            color: var(--dark);
+            padding: 1rem 1.2rem;
             border-radius: 12px;
             background: var(--light-bg);
+            transition: transform .3s, box-shadow .3s, color .3s
         }
 
         .contact-link:hover {
-            color: var(--primary-color);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .07);
+            color: var(--primary)
         }
 
-        .contact-link i {
-            font-size: 1.8rem;
-            width: 50px;
-            height: 50px;
+        .c-icon {
+            width: 46px;
+            height: 46px;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             color: white;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, .22)
+        }
+
+        .c-icon.wa {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, .25)
+        }
+
+        .c-icon.ig {
+            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+            box-shadow: 0 4px 12px rgba(220, 39, 67, .22)
+        }
+
+        .c-label h4 {
+            font-size: .82rem;
+            color: #9ca3af;
+            font-weight: 500;
+            margin-bottom: 2px
+        }
+
+        .c-label span {
+            font-size: .9rem;
+            font-weight: 500
         }
 
         .contact-form {
             background: white;
-            padding: 3rem;
+            padding: 2.5rem;
             border-radius: 16px;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow)
         }
 
-        .about-content p {
-            text-align: justify;
+        .contact-form h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem
         }
 
         .form-label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: .4rem;
             font-weight: 500;
-            color: var(--text-color);
+            font-size: .9rem;
+            color: #374151
         }
 
         .form-control {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--light-bg);
+            padding: .85rem 1rem;
+            border: 2px solid #e5e7eb;
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s;
+            font-size: .95rem;
+            transition: border-color .3s, box-shadow .3s;
+            color: var(--dark);
+            background: #fafafa
+        }
+
+        .form-control::placeholder {
+            color: #9ca3af
         }
 
         .form-control:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+            background: white
         }
 
         textarea.form-control {
             resize: vertical;
-            min-height: 120px;
+            min-height: 120px
         }
 
         .submit-btn {
-            background: linear-gradient(45deg, #25D366, #128C7E);
+            width: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             color: white;
             border: none;
-            padding: 1rem 2rem;
+            padding: .9rem 2rem;
             font-size: 1rem;
             font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            justify-content: center;
+            gap: .6rem;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, .25);
+            transition: transform .3s, box-shadow .3s, background .4s
         }
 
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 8px 22px rgba(37, 99, 235, .38)
         }
 
-        /* Section Titles */
-        .section-title {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            display: inline-block;
+        .submit-btn:disabled {
+            cursor: not-allowed;
+            opacity: .85
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-            border-radius: 4px;
+        .submit-btn.sending {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, .3)
         }
 
-        .section-subtitle {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #666;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Footer */
+        /* FOOTER */
         .footer {
             padding: 4rem 2rem 2rem;
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
             color: white;
             position: relative;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .footer::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
-            pointer-events: none;
+            inset: 0;
+            background: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, .08) 0%, transparent 50%);
+            pointer-events: none
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1.8fr 1fr 1fr;
+            gap: 3rem;
             position: relative;
-            z-index: 1;
+            z-index: 1
         }
 
         .footer-logo {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            display: inline-block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 1rem
         }
 
         .footer-text {
-            margin-bottom: 2rem;
-            opacity: 0.8;
-            max-width: 400px;
+            opacity: .8;
             line-height: 1.8;
+            font-size: .93rem;
+            margin-bottom: 1.5rem
         }
 
         .footer-social {
             display: flex;
-            gap: 1rem;
+            gap: .8rem;
+            flex-wrap: wrap
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, .12);
             border-radius: 50%;
             color: white;
-            transition: all 0.3s;
             text-decoration: none;
+            transition: background .3s, transform .3s
         }
 
         .social-link:hover {
             background: white;
-            color: var(--primary-color);
-            transform: translateY(-5px);
+            color: var(--primary);
+            transform: translateY(-4px)
         }
 
         .footer-heading {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.3rem;
+            padding-bottom: .7rem;
+            position: relative
         }
 
         .footer-heading::after {
@@ -1125,116 +1250,96 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 40px;
+            width: 36px;
             height: 3px;
-            background: white;
-            border-radius: 3px;
+            background: rgba(255, 255, 255, .6);
+            border-radius: 3px
         }
 
         .footer-links {
-            list-style: none;
-            padding: 0;
+            list-style: none
         }
 
         .footer-links li {
-            margin-bottom: 1rem;
+            margin-bottom: .8rem
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, .78);
             text-decoration: none;
-            transition: all 0.3s;
+            font-size: .9rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: .5rem;
+            transition: color .3s, transform .3s
         }
 
         .footer-links a:hover {
             color: white;
-            transform: translateX(5px);
+            transform: translateX(4px)
         }
 
-        .footer-links a i {
-            font-size: 0.8rem;
-        }
-
-        .footer-contact {
+        .footer-contact-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.8);
+            gap: .8rem;
+            margin-bottom: .9rem;
+            color: rgba(255, 255, 255, .8);
+            font-size: .9rem
         }
 
-        .footer-contact i {
-            width: 35px;
-            height: 35px;
+        .footer-contact-item .fc-icon {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+            background: rgba(255, 255, 255, .12);
+            border-radius: 50%
         }
 
         .footer-bottom {
             max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 3rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, .12);
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: relative;
-            z-index: 1;
+            z-index: 1
         }
 
         .copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
+            opacity: .65;
+            font-size: .88rem
         }
 
         .footer-nav {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem
         }
 
         .footer-nav a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, .65);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s;
+            font-size: .88rem;
+            transition: color .3s
         }
 
         .footer-nav a:hover {
-            color: white;
+            color: white
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        /* Back to top */
+        /* BACK TO TOP */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            bottom: 28px;
+            right: 28px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(45deg, var(--primary), var(--primary2));
             color: white;
             border-radius: 50%;
             display: flex;
@@ -1244,293 +1349,314 @@
             z-index: 100;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            pointer-events: none;
+            transition: opacity .3s, visibility .3s, transform .3s;
+            box-shadow: 0 5px 16px rgba(37, 99, 235, .35)
         }
 
         .back-to-top.visible {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto
         }
 
         .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+            transform: translateY(-4px)
         }
 
-        /* Responsive */
-        @media (max-width: 1100px) {
-            .hero-container {
-                gap: 2rem;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(32px)
             }
 
-            .profile-img-container {
-                width: 300px;
-                height: 300px;
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(32px)
             }
 
-            .profile-img-background {
-                width: 320px;
-                height: 320px;
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr
             }
 
             .hero h1 {
-                font-size: 3.5rem;
-            }
-
-            .about-content {
-                flex-direction: column;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 3rem;
+                font-size: 3rem
             }
         }
 
-        @media (max-width: 1024px) {
-
-            .contact-grid,
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .about-content {
-                flex-direction: column;
-            }
-
-            .section-title {
-                font-size: 2.4rem;
-            }
-
-            .hero h1 {
-                font-size: 3.2rem;
-            }
-        }
-
-        @media (max-width: 900px) {
+        @media(max-width:900px) {
             .hero-container {
                 grid-template-columns: 1fr;
-                text-align: center;
+                text-align: center
             }
 
-            .hero h1::after {
-                left: 50%;
-                transform: translateX(-50%);
+            .hero h1 .underline-bar {
+                margin: 10px auto 0
+            }
+
+            .hero p {
+                margin: 1rem auto 0
+            }
+
+            .hero-tags {
+                justify-content: center
+            }
+
+            .hero-cta {
+                justify-content: center
             }
 
             .hero-image {
-                order: -1;
-                margin-bottom: 2rem;
+                order: -1
+            }
+
+            .about-content {
+                flex-direction: column
             }
 
             .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .section-title::after {
-                left: 50%;
-                transform: translateX(-50%);
+                grid-template-columns: 1fr
             }
         }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
+        @media(max-width:768px) {
             .menu-btn {
-                display: block;
+                display: flex;
+                align-items: center
             }
 
-            .projects-filter {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .section {
-                padding: 4rem 1.5rem;
-            }
-
-            .about-card {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-info::before {
-                width: 100%;
-                height: 5px;
+            .nav-links {
+                position: fixed;
                 top: 0;
-                left: 0;
+                right: -100%;
+                width: 260px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 5rem 2rem 2rem;
+                gap: .3rem;
+                box-shadow: -4px 0 24px rgba(0, 0, 0, .1);
+                z-index: 999;
+                transition: right .35s ease;
+                display: flex !important
+            }
+
+            .nav-links.open {
+                right: 0
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: .7rem 0;
+                font-size: 1rem;
+                border-bottom: 1px solid #f3f4f6
             }
 
             .hero {
-                padding: 10rem 2rem 6rem;
+                padding: 8rem 1.5rem 5rem;
+                min-height: auto
             }
 
-            .profile-img-container {
+            .hero h1 {
+                font-size: 2.4rem
+            }
+
+            .profile-img-wrap {
                 width: 260px;
-                height: 260px;
+                height: 260px
             }
 
-            .profile-img-background {
-                width: 280px;
-                height: 280px;
+            .section {
+                padding: 4rem 1.5rem
+            }
+
+            .section-title {
+                font-size: 2.1rem
+            }
+
+            .about-card {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .projects-header {
+                justify-content: center
             }
 
             .footer-content {
                 grid-template-columns: 1fr;
+                gap: 2rem
             }
 
             .footer-bottom {
                 flex-direction: column;
                 gap: 1rem;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-            }
-
-            .section {
-                padding: 4rem 1.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .hero-tag {
-                margin-bottom: 1rem;
-            }
-
-            .profile-img-container {
-                width: 220px;
-                height: 220px;
-            }
-
-            .profile-img-background {
-                width: 240px;
-                height: 240px;
-            }
-
-            .project-image {
-                height: 180px;
-            }
-
-            .contact-link {
-                padding: 1rem;
-            }
-
-            .contact-link i {
-                width: 40px;
-                height: 40px;
-                font-size: 1.4rem;
-            }
-
-            .contact-form,
-            .contact-info {
-                padding: 2rem;
+                text-align: center
             }
 
             .footer-nav {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
+                flex-wrap: wrap;
+                justify-content: center
+            }
+        }
+
+        @media(max-width:480px) {
+            .hero h1 {
+                font-size: 2rem
+            }
+
+            .hero p {
+                font-size: 1rem
+            }
+
+            .profile-img-wrap {
+                width: 210px;
+                height: 210px
+            }
+
+            .about-card {
+                grid-template-columns: 1fr
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 1.8rem
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Background Animation -->
-    <div class="bg-animation">
+
+    <div class="bg-animation" aria-hidden="true">
         <span></span><span></span><span></span><span></span><span></span>
     </div>
+    <div class="nav-overlay" id="navOverlay"></div>
 
-    <!-- Navigation -->
+    <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
         <div class="nav-content">
             <div class="logo">AK</div>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+                <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.5" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- HERO -->
+    <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
-                <h1>Software Engineer & Frontend Developer</h1>
+                <h1>Software Engineer &amp; Frontend Developer<span class="underline-bar"></span></h1>
                 <p>I'm passionate about building real-world web applications and learning how scalable software systems
                     work. I focus on frontend development using React.js and enjoy turning ideas into clean,
                     interactive, and user-friendly interfaces.</p>
-
                 <div class="hero-tags">
-                    <div class="hero-tag"><i class="fas fa-code"></i> Full-Stack Developer</div>
-                    <div class="hero-tag"><i class="fas fa-brain"></i> AI Specialist</div>
+                    <span class="hero-tag">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6" />
+                            <polyline points="8 6 2 12 8 18" />
+                        </svg>
+                        Full-Stack Developer
+                    </span>
+                    <span class="hero-tag">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
+                            <path
+                                d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
+                        </svg>
+                        AI Specialist
+                    </span>
                 </div>
-
                 <div class="hero-cta">
-                    <a href="#projects" class="hero-button primary-btn"><i class="fas fa-eye"></i> View My Work</a>
-                    <a href="#contact" class="hero-button secondary-btn"><i class="fas fa-paper-plane"></i> Contact
-                        Me</a>
+                    <a href="#projects" class="hero-button primary-btn">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View My Work
+                    </a>
+                    <a href="#contact" class="hero-button secondary-btn">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                        Contact Me
+                    </a>
                 </div>
             </div>
-
             <div class="hero-image">
-                <div class="profile-img-container">
-                    <img src="Aman.png" alt="Aman Khan" class="profile-img">
+                <div class="profile-img-wrap">
+                    <div class="profile-img-container">
+                        <img src="Aman.png" alt="Aman Khan" class="profile-img"
+                            onerror="this.style.display='none';document.getElementById('imgPlaceholder').style.display='flex'">
+                        <div class="profile-img-placeholder" id="imgPlaceholder">
+                            <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            <span>Aman Khan</span>
+                        </div>
+                    </div>
+                    <div class="profile-glow"></div>
                 </div>
-                <div class="profile-img-background"></div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- ABOUT -->
     <section class="section" id="about">
-        <h2 class="section-title">About Me</h2>
-        <p class="section-subtitle">Passionate about creating intuitive and efficient software solutions.</p>
-
+        <div class="section-head">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">Passionate about creating intuitive and efficient software solutions.</p>
+        </div>
         <div class="about-content">
             <div class="about-text">
                 <p>Hey 👋 I'm Aman, a frontend developer who genuinely loves building things on the web 💻. I mainly
                     work with React.js and enjoy creating clean, interactive, and user-friendly interfaces. I believe
-                    the
-                    best way to learn is by actually building real projects, not just watching tutorials — that's how I
-                    grow 🚀.</p><br>
-                <p>I recently built a full React project that simulates a real coding platform, which helped
-                    me understand state management, component structure, logic building, and UI flow deeply 🧠. I also
-                    explore problem-solving, basic DSA, and continuously push myself to improve every day.</p><br>
+                    the best way to learn is by actually building real projects, not just watching tutorials — that's
+                    how I grow 🚀.</p>
+                <p>I recently built a full React project that simulates a real coding platform, which helped me
+                    understand state management, component structure, logic building, and UI flow deeply 🧠. I also
+                    explore problem-solving, basic DSA, and continuously push myself to improve every day.</p>
                 <p>I'm highly motivated, self-driven, and comfortable working independently. I may be early in my
-                    journey, but I'm
-                    serious, disciplined, and hungry to learn fast 🔥. I'm looking for opportunities where I can
-                    contribute, grow, and work with people who value skills and passion over labels 🌍.</p>
+                    journey, but I'm serious, disciplined, and hungry to learn fast 🔥. I'm looking for opportunities
+                    where I can contribute, grow, and work with people who value skills and passion over labels 🌍.</p>
             </div>
             <div class="about-card">
                 <div class="about-stat">
@@ -1553,192 +1679,287 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- SKILLS -->
     <section class="section" id="skills">
-        <h2 class="section-title">My Skills</h2>
-        <p class="section-subtitle">Here are the technologies and tools I work with.</p>
-
+        <div class="section-head">
+            <h2 class="section-title">My Skills</h2>
+            <p class="section-subtitle">Here are the technologies and tools I work with.</p>
+        </div>
         <div class="skills-grid">
-            <!-- Programming Languages -->
+
             <div class="skill-category">
                 <div class="skill-header">
-                    <div class="skill-icon"><i class="fa-solid fa-laptop"></i></div>
+                    <div class="skill-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" />
+                            <line x1="8" y1="21" x2="16" y2="21" />
+                            <line x1="12" y1="17" x2="12" y2="21" />
+                        </svg>
+                    </div>
                     <h3>Programming Languages</h3>
                 </div>
                 <div class="skill-list">
-                    <div class="skill-tag"><i class="fa-brands fa-java"></i> Java (with DSA)</div>
-                    <div class="skill-tag"><i class="fa-brands fa-js"></i> JavaScript</div>
+                    <span class="skill-tag">☕ Java (with DSA)</span>
+                    <span class="skill-tag">🟨 JavaScript</span>
                 </div>
-                <div class="skill-progress">
-                    <div class="progress-item">
-                        <div class="progress-title"><span>Java</span><span>90%</span></div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width:90%"></div>
-                        </div>
+                <div class="progress-item">
+                    <div class="progress-title"><span>Java</span><span>90%</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="90"></div>
                     </div>
-                    <div class="progress-item">
-                        <div class="progress-title"><span>JavaScript</span><span>85%</span></div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width:85%"></div>
-                        </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-title"><span>JavaScript</span><span>85%</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="85"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Web Development -->
             <div class="skill-category">
                 <div class="skill-header">
-                    <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
+                    <div class="skill-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6" />
+                            <polyline points="8 6 2 12 8 18" />
+                        </svg>
+                    </div>
                     <h3>Web Development</h3>
                 </div>
                 <div class="skill-list">
-                    <div class="skill-tag">HTML</div>
-                    <div class="skill-tag">CSS</div>
-                    <div class="skill-tag">JavaScript</div>
-                    <div class="skill-tag">React.js</div>
+                    <span class="skill-tag">🌐 HTML5</span>
+                    <span class="skill-tag">🎨 CSS3</span>
+                    <span class="skill-tag">🟨 JavaScript</span>
+                    <span class="skill-tag">⚛️ React.js</span>
                 </div>
-                <div class="skill-progress">
-                    <div class="progress-item">
-                        <div class="progress-title"><span>React.js</span><span>80%</span></div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width:80%"></div>
-                        </div>
+                <div class="progress-item">
+                    <div class="progress-title"><span>React.js</span><span>80%</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="80"></div>
                     </div>
-                    <div class="progress-item">
-                        <div class="progress-title"><span>CSS</span><span>75%</span></div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width:75%"></div>
-                        </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-title"><span>CSS3</span><span>75%</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="75"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tools & Others -->
             <div class="skill-category">
                 <div class="skill-header">
-                    <div class="skill-icon"><i class="fas fa-tools"></i></div>
-                    <h3>Tools & Others</h3>
+                    <div class="skill-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                        </svg>
+                    </div>
+                    <h3>Tools &amp; Others</h3>
                 </div>
                 <div class="skill-list">
-                    <div class="skill-tag">Git</div>
-                    <div class="skill-tag">Responsive Design</div>
-                    <div class="skill-tag">Accessibility</div>
+                    <span class="skill-tag">🔧 Git</span>
+                    <span class="skill-tag">📱 Responsive Design</span>
+                    <span class="skill-tag">♿ Accessibility</span>
                 </div>
-                <div class="skill-progress">
-                    <div class="progress-item">
-                        <div class="progress-title"><span>Git</span><span>85%</span></div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width:85%"></div>
-                        </div>
+                <div class="progress-item">
+                    <div class="progress-title"><span>Git</span><span>85%</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-title"><span>Responsive Design</span><span>90%</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" data-width="90"></div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- PROJECTS -->
     <section class="section" id="projects">
-        <h2 class="section-title">My Projects</h2>
-        <p class="section-subtitle">Check out some of my recent work.</p>
-
+        <div class="section-head">
+            <h2 class="section-title">My Projects</h2>
+            <p class="section-subtitle">Check out some of my recent work.</p>
+        </div>
         <div class="projects-header">
             <div class="projects-filter">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="mobile">Mobile</button>
-                <button class="filter-btn" data-filter="design">Design</button>
+                <button class="filter-btn" data-filter="game">Game</button>
             </div>
         </div>
-
         <div class="projects-grid">
 
-            <!-- Brain Quest Game -->
-            <div class="project-card" data-category="web">
+            <!-- Brain Quest -->
+            <div class="project-card" data-category="game">
                 <div class="project-image">
-                    <i class="fa-solid fa-gamepad"></i>
+                    <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
+                        <path
+                            d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
+                    </svg>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title"><a href="#">Brain Quest Game</a></h3>
-                    <p>A-Man's Brain Quest is a dynamic and interactive web application designed to enhance users'
-                        logical reasoning, problem-solving, and aptitude skills.</p>
+                    <h3 class="project-title"><a href="https://aman00369.github.io/landing-page/" target="_blank">Brain
+                            Quest Game</a></h3>
+                    <p class="project-desc">A dynamic and interactive web application to enhance logical reasoning,
+                        problem-solving, and aptitude skills through engaging challenges and varying difficulty levels.
+                    </p>
                     <div class="project-tech">
-                        <span class="tech-tag"><i class="fa-solid fa-code"></i> HTML</span>
-                        <span class="tech-tag"><i class="fa-brands fa-css"></i> CSS</span>
-                        <span class="tech-tag"><i class="fa-brands fa-js"></i> JavaScript</span>
+                        <span class="tech-tag">🌐 HTML</span>
+                        <span class="tech-tag">🎨 CSS</span>
+                        <span class="tech-tag">🟨 JavaScript</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://aman00369.github.io/landing-page/" class="project-link demo-link"><i
-                                class="fas fa-external-link-alt"></i> Live Demo</a>
-                        <a href="#" class="project-link code-link"><i class="fab fa-github"></i> View Code</a>
+                        <a href="https://aman00369.github.io/landing-page/" target="_blank"
+                            class="project-link demo-link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                            Live Demo
+                        </a>
+                        <a href="https://github.com/Aman00369/Brain-Quest-Game" target="_blank" class="project-link code-link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                            </svg>
+                            Code
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Bright Mind Institute -->
+            <!-- FuturePath Learning Institute -->
             <div class="project-card" data-category="web">
-                <div class="project-image">
-                    <i class="fa-solid fa-school"></i>
+                <div class="project-image teal">
+                    <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title"><a href="#">futurePath learning Institute</a></h3>
-                    <p>The Bright Mind Institute website is a clean, user-friendly web application designed to provide
-                        easy access to detailed course information and enrollment options. Its smooth navigation and
-                        modern
-                        layout ensure a seamless and engaging experience for students and parents alike.</p>
+                    <h3 class="project-title"><a href="https://aman00369.github.io/FuturePath-Learning-Institute/" target="_blank">FuturePath Learning Institute</a></h3>
+                    <p class="project-desc">A clean, user-friendly web app providing easy access to course information
+                        and enrollment options with smooth navigation and a modern layout for students and parents.</p>
                     <div class="project-tech">
-                        <span class="tech-tag"><i class="fa-solid fa-code"></i> HTML</span>
-                        <span class="tech-tag"><i class="fa-brands fa-css"></i> CSS</span>
-                        <span class="tech-tag"><i class="fa-brands fa-js"></i> JavaScript</span>
+                        <span class="tech-tag">🌐 HTML</span>
+                        <span class="tech-tag">🎨 CSS</span>
+                        <span class="tech-tag">🟨 JavaScript</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://aman00369.github.io/FuturePath-Learning-Institute/" class="project-link demo-link"><i
-                                class="fas fa-external-link-alt"></i> Live Demo</a>
-                        <a href="#" class="project-link code-link"><i class="fab fa-github"></i> View Code</a>
+                        <a href="https://aman00369.github.io/FuturePath-Learning-Institute/" target="_blank" class="project-link demo-link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                            Live Demo
+                        </a>
+                        <a href="https://github.com/Aman00369/FuturePath-Learning-Institute" target="_blank" class="project-link code-link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                            </svg>
+                            Code
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Snake Game -->
-            <div class="project-card" data-category="web">
-                <div class="project-image" style="background: linear-gradient(45deg, #16a34a, #22c55e);">
-                    <i class="fa-solid fa-dragon"></i>
+            <div class="project-card" data-category="game">
+                <div class="project-image green">
+                    <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                        <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4" />
+                        <circle cx="15" cy="9" r="1.5" fill="white" />
+                    </svg>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title"><a href="#">Snake Game</a></h3>
-                    <p>A classic Snake Game built with pure JavaScript and HTML Canvas. Navigate the snake to eat food,
-                        grow longer, and beat your high score — all with smooth controls and increasing difficulty.</p>
+                    <h3 class="project-title"><a href="https://aman00369.github.io/Snake/">Snake Game</a></h3>
+                    <p class="project-desc">Classic Snake Game built with pure JavaScript and HTML Canvas. Navigate the
+                        snake, eat food, grow longer, and beat your high score with smooth controls and increasing
+                        difficulty.</p>
                     <div class="project-tech">
-                        <span class="tech-tag"><i class="fa-solid fa-code"></i> HTML</span>
-                        <span class="tech-tag"><i class="fa-brands fa-css"></i> CSS</span>
-                        <span class="tech-tag"><i class="fa-brands fa-js"></i> JavaScript</span>
+                        <span class="tech-tag">🌐 HTML</span>
+                        <span class="tech-tag">🎨 CSS</span>
+                        <span class="tech-tag">🟨 JavaScript</span>
+                        <span class="tech-tag">🖼️ Canvas</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://aman00369.github.io/Snake/" class="project-link demo-link"><i class="fas fa-external-link-alt"></i> Live
-                            Demo</a>
-                        <a href="#" class="project-link code-link"><i class="fab fa-github"></i> View Code</a>
+                        <a href="https://aman00369.github.io/Snake/" class="project-link demo-link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                            Live Demo
+                        </a>
+                        <a href="https://github.com/Aman00369/Snake" target="_blank" class="project-link code-link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                            </svg>
+                            Code
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Cyber-Rush -->
-            <div class="project-card" data-category="web">
-                <div class="project-image" style="background: linear-gradient(45deg, #7c3aed, #a855f7);">
-                    <i class="fa-solid fa-bolt"></i>
+            <div class="project-card" data-category="game">
+                <div class="project-image purple">
+                    <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                    </svg>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title"><a href="#">Cyber-Rush</a></h3>
-                    <p>Cyber-Rush is a fast-paced, cyberpunk-themed browser game where players dodge obstacles and
-                        survive increasingly intense waves. Built for thrill-seekers with a modern, neon-lit UI
-                        experience.</p>
+                    <h3 class="project-title"><a href="https://aman00369.github.io/Neon-Rush/">Cyber-Rush</a></h3>
+                    <p class="project-desc">A fast-paced, cyberpunk-themed browser game where players dodge obstacles
+                        and survive increasingly intense waves with a neon-lit UI and adrenaline-pumping gameplay.</p>
                     <div class="project-tech">
-                        <span class="tech-tag"><i class="fa-solid fa-code"></i> HTML</span>
-                        <span class="tech-tag"><i class="fa-brands fa-css"></i> CSS</span>
-                        <span class="tech-tag"><i class="fa-brands fa-js"></i> JavaScript</span>
+                        <span class="tech-tag">🌐 HTML</span>
+                        <span class="tech-tag">🎨 CSS</span>
+                        <span class="tech-tag">🟨 JavaScript</span>
+                        <span class="tech-tag">🖼️ Canvas</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://aman00369.github.io/Neon-Rush/" class="project-link demo-link"><i class="fas fa-external-link-alt"></i> Live
-                            Demo</a>
-                        <a href="#" class="project-link code-link"><i class="fab fa-github"></i> View Code</a>
+                        <a href="https://aman00369.github.io/Neon-Rush/" class="project-link demo-link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                            Live Demo
+                        </a>
+                        <a href="https://github.com/Aman00369/Neon-Rush" target="_blank" class="project-link code-link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                            </svg>
+                            Code
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1746,339 +1967,333 @@
         </div>
     </section>
 
-    <!-- Instagram Section -->
+    <!-- INSTAGRAM -->
     <section class="instagram-section">
         <div class="instagram-content">
             <div class="instagram-header">
-                <a href="https://www.instagram.com/codemancer786/following/"><i class="fab fa-instagram"></i> Follow me
-                    on Instagram</a>
+                <a href="https://www.instagram.com/codemancer78/" target="_blank">
+                    <span class="instagram-icon-gradient">&#9670;</span> Follow me on Instagram
+                </a>
             </div>
-
             <div class="instagram-grid">
                 <div class="instagram-post">
-                    <img src="https://picsum.photos/id/1/600/600" alt="Instagram Post">
+                    <img src="https://picsum.photos/id/1/600/600" alt="Post" loading="lazy">
                     <div class="instagram-overlay">
-                        <div class="instagram-caption">Exploring the future of AI at #TechConference2023</div>
+                        <div class="instagram-caption">Exploring the future of AI at #TechConference2024</div>
                         <div class="instagram-stats">
-                            <div class="instagram-stat"><i class="fas fa-heart"></i> 245</div>
-                            <div class="instagram-stat"><i class="fas fa-comment"></i> 18</div>
+                            <span class="instagram-stat">♥ 245</span>
+                            <span class="instagram-stat">💬 18</span>
                         </div>
                     </div>
                 </div>
                 <div class="instagram-post">
-                    <img src="https://picsum.photos/id/2/600/600" alt="Instagram Post">
+                    <img src="https://picsum.photos/id/20/600/600" alt="Post" loading="lazy">
                     <div class="instagram-overlay">
-                        <div class="instagram-caption">Working on a new neural network architecture #DeepLearning</div>
+                        <div class="instagram-caption">Working on a new project architecture #WebDev</div>
                         <div class="instagram-stats">
-                            <div class="instagram-stat"><i class="fas fa-heart"></i> 187</div>
-                            <div class="instagram-stat"><i class="fas fa-comment"></i> 14</div>
+                            <span class="instagram-stat">♥ 187</span>
+                            <span class="instagram-stat">💬 14</span>
                         </div>
                     </div>
                 </div>
                 <div class="instagram-post">
-                    <img src="https://picsum.photos/id/3/600/600" alt="Instagram Post">
+                    <img src="https://picsum.photos/id/48/600/600" alt="Post" loading="lazy">
                     <div class="instagram-overlay">
-                        <div class="instagram-caption">Code, coffee, and creativity - perfect morning</div>
+                        <div class="instagram-caption">Code, coffee, and creativity — perfect morning ☕</div>
                         <div class="instagram-stats">
-                            <div class="instagram-stat"><i class="fas fa-heart"></i> 312</div>
-                            <div class="instagram-stat"><i class="fas fa-comment"></i> 24</div>
+                            <span class="instagram-stat">♥ 312</span>
+                            <span class="instagram-stat">💬 24</span>
                         </div>
                     </div>
                 </div>
                 <div class="instagram-post">
-                    <img src="https://picsum.photos/id/4/600/600" alt="Instagram Post">
+                    <img src="https://picsum.photos/id/60/600/600" alt="Post" loading="lazy">
                     <div class="instagram-overlay">
-                        <div class="instagram-caption">Presented my latest research at #AIConference</div>
+                        <div class="instagram-caption">Presented my latest project at #DevMeetup</div>
                         <div class="instagram-stats">
-                            <div class="instagram-stat"><i class="fas fa-heart"></i> 274</div>
-                            <div class="instagram-stat"><i class="fas fa-comment"></i> 31</div>
+                            <span class="instagram-stat">♥ 274</span>
+                            <span class="instagram-stat">💬 31</span>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="instagram-view-all">
-                <a href="https://www.instagram.com/codemancer786?igsh=Nmw4MHdmY3l6dTU4" class="instagram-btn"><i
-                        class="fab fa-instagram"></i> View Instagram Profile</a>
+                <a href="https://www.instagram.com/codemancer786?igsh=Nmw4MHdmY3l6dTU4" target="_blank"
+                    class="instagram-btn">
+                    📸 View Instagram Profile
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- CONTACT -->
     <section class="section" id="contact">
-        <h2 class="section-title">Contact Me</h2>
-        <p class="section-subtitle">Let's work together on your next project.</p>
-
+        <div class="section-head">
+            <h2 class="section-title">Contact Me</h2>
+            <p class="section-subtitle">Let's work together on your next project.</p>
+        </div>
         <div class="contact-grid">
             <div class="contact-info">
                 <h3>Get In Touch</h3>
-                <p>Feel free to reach out to me through any of these channels. I'm always open to discussing new
-                    projects, creative ideas, or opportunities to be part of your vision.</p>
-
+                <p>Feel free to reach out through any of these channels. I'm always open to discussing new projects,
+                    creative ideas, or opportunities to be part of your vision.</p>
                 <div class="contact-links">
                     <a href="mailto:myth3552@gmail.com" class="contact-link">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <span>myth3552@gmail.com</span>
+                        <span class="c-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </span>
+                        <div class="c-label">
+                            <h4>Email</h4><span>myth3552@gmail.com</span>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/918910517578" target="_blank" class="contact-link">
+                        <span class="c-icon wa">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                            </svg>
+                        </span>
+                        <div class="c-label">
+                            <h4>WhatsApp</h4><span>+91 8910517578</span>
                         </div>
                     </a>
                     <a href="https://www.instagram.com/codemancer786?igsh=Nmw4MHdmY3l6dTU4" target="_blank"
                         class="contact-link">
-                        <i class="fa-brands fa-square-instagram"></i>
-                        <div>
-                            <h4>Instagram</h4>
-                            <span>Codemancer</span>
+                        <span class="c-icon ig">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                        </span>
+                        <div class="c-label">
+                            <h4>Instagram</h4><span>@codemancer786</span>
                         </div>
                     </a>
-                    <a href="https://www.linkedin.com/in/aman-khan-210187324?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                        target="_blank" class="contact-link">
-                        <i class="fab fa-linkedin-in"></i>
-                        <div>
-                            <h4>LinkedIn</h4>
-                            <span>linkedin.com/in/aman-khan</span>
-                        </div>
-                    </a>
-                    <a href="https://wa.me/918910517578" target="_blank" class="contact-link">
-                        <i class="fab fa-whatsapp"></i>
-                        <div>
-                            <h4>WhatsApp</h4>
-                            <span>+91 8910517578</span>
+                    <a href="https://www.linkedin.com/in/aman-khan-210187324" target="_blank" class="contact-link">
+                        <span class="c-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
+                        </span>
+                        <div class="c-label">
+                            <h4>LinkedIn</h4><span>linkedin.com/in/aman-khan</span>
                         </div>
                     </a>
                 </div>
             </div>
-
             <div class="contact-form">
                 <h3>Send a Message via WhatsApp</h3>
-                <form id="contactForm" onsubmit="sendWA(event)">
+                <form id="contactForm" onsubmit="sendWA(event)" novalidate>
                     <div class="form-group">
-                        <label for="f_name" class="form-label">Name</label>
-                        <input type="text" id="f_name" class="form-control" placeholder="Your name" required>
+                        <label for="f_name" class="form-label">Your Name <span style="color:#ef4444">*</span></label>
+                        <input type="text" id="f_name" class="form-control" placeholder="Aman Khan" required>
                     </div>
                     <div class="form-group">
-                        <label for="f_email" class="form-label">Email (Optional)</label>
-                        <input type="email" id="f_email" class="form-control" placeholder="your@email.com">
+                        <label for="f_email" class="form-label">Email <span
+                                style="color:#9ca3af;font-size:.8rem">(optional)</span></label>
+                        <input type="email" id="f_email" class="form-control" placeholder="you@example.com">
                     </div>
                     <div class="form-group">
-                        <label for="f_subject" class="form-label">Subject</label>
-                        <input type="text" id="f_subject" class="form-control" placeholder="What's this about?"
-                            required>
+                        <label for="f_subject" class="form-label">Subject <span style="color:#ef4444">*</span></label>
+                        <input type="text" id="f_subject" class="form-control"
+                            placeholder="Project inquiry / Collaboration..." required>
                     </div>
                     <div class="form-group">
-                        <label for="f_msg" class="form-label">Message</label>
-                        <textarea id="f_msg" class="form-control" placeholder="Write your message here..."
+                        <label for="f_msg" class="form-label">Message <span style="color:#ef4444">*</span></label>
+                        <textarea id="f_msg" class="form-control" placeholder="Tell me about your project or idea..."
                             required></textarea>
                     </div>
                     <button type="submit" class="submit-btn" id="waBtn">
-                        <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        Send via WhatsApp
                     </button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-about">
-                <a class="footer-logo">Aman Khan</a>
-                <p class="footer-text">Software Engineer and AI Researcher dedicated to pushing the boundaries of
-                    technology through innovative solutions and cutting-edge research.</p>
+                <span class="footer-logo">Aman Khan</span>
+                <p class="footer-text">Frontend Developer and Software Engineer dedicated to building clean,
+                    user-friendly web experiences and exploring the world of scalable software systems.</p>
                 <div class="footer-social">
-                    <a href="https://github.com/Aman00369" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/aman-khan-210187324?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                        class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://x.com/Aman_khan369?t=bMoIrUS0ieT5UXqRQWn-qw&s=08" class="social-link"><i
-                            class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/codemancer786?igsh=Nmw4MHdmY3l6dTU4" class="social-link"><i
-                            class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/918910517578" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://github.com/Aman00369" target="_blank" class="social-link" title="GitHub">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/aman-khan-210187324" target="_blank" class="social-link"
+                        title="LinkedIn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                    <a href="https://x.com/Aman_khan369" target="_blank" class="social-link" title="Twitter/X">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.261 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/codemancer786?igsh=Nmw4MHdmY3l6dTU4" target="_blank"
+                        class="social-link" title="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/918910517578" target="_blank" class="social-link" title="WhatsApp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                    </a>
                 </div>
             </div>
-
-            <div class="footer-links-container">
+            <div>
                 <h4 class="footer-heading">Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="#about"><i class="fas fa-chevron-right"></i> About Me</a></li>
-                    <li><a href="#skills"><i class="fas fa-chevron-right"></i> My Skills</a></li>
-                    <li><a href="#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
-                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="#about">› About Me</a></li>
+                    <li><a href="#skills">› My Skills</a></li>
+                    <li><a href="#projects">› Projects</a></li>
+                    <li><a href="#contact">› Contact</a></li>
                 </ul>
             </div>
-
-            <div class="footer-contact-container">
-                <h4 class="footer-heading">Contact Me</h4>
-                <div class="footer-contact">
-                    <i class="fas fa-envelope"></i>
-                    <div>myth3552@gmail.com</div>
-                </div>
-                <div class="footer-contact">
-                    <i class="fab fa-whatsapp"></i>
-                    <div>+91 8910517578</div>
-                </div>
-                <div class="footer-contact">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>Kolkata, INDIA</div>
-                </div>
+            <div>
+                <h4 class="footer-heading">Contact</h4>
+                <div class="footer-contact-item"><span class="fc-icon">✉</span><span>myth3552@gmail.com</span></div>
+                <div class="footer-contact-item"><span class="fc-icon">📱</span><span>+91 8910517578</span></div>
+                <div class="footer-contact-item"><span class="fc-icon">📍</span><span>Kolkata, India</span></div>
             </div>
         </div>
-
         <div class="footer-bottom">
             <div class="copyright">© 2025 Aman Khan. All rights reserved.</div>
-            <div class="footer-nav">
+            <nav class="footer-nav">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
-                <a href="#">Cookies Policy</a>
-            </div>
+                <a href="#">Cookies</a>
+            </nav>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
+    <a href="#home" class="back-to-top" id="backTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15" />
+        </svg>
+    </a>
 
-    <!-- JavaScript -->
     <script>
-        // ── WHATSAPP NUMBER
         const WA_NUM = "918910517578";
 
-        // ── WHATSAPP FORM
+        /* MOBILE MENU */
+        const menuBtn = document.getElementById('menuBtn');
+        const menuIcon = document.getElementById('menuIcon');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('navOverlay');
+
+        const BARS_SVG = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+        const CLOSE_SVG = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+        function openMenu() { navLinks.classList.add('open'); overlay.classList.add('show'); menuBtn.innerHTML = CLOSE_SVG; }
+        function closeMenu() { navLinks.classList.remove('open'); overlay.classList.remove('show'); menuBtn.innerHTML = BARS_SVG; }
+
+        menuBtn.addEventListener('click', () => navLinks.classList.contains('open') ? closeMenu() : openMenu());
+        overlay.addEventListener('click', closeMenu);
+        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+        /* NAVBAR + BACK-TO-TOP */
+        const navbar = document.getElementById('navbar');
+        const backTop = document.getElementById('backTop');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            backTop.classList.toggle('visible', window.scrollY > 300);
+        }, { passive: true });
+        backTop.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+        /* SMOOTH SCROLL */
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function (e) {
+                const t = document.querySelector(this.getAttribute('href'));
+                if (!t) return;
+                e.preventDefault();
+                window.scrollTo({ top: t.offsetTop - navbar.offsetHeight - 10, behavior: 'smooth' });
+            });
+        });
+
+        /* SECTION REVEAL */
+        const sectionObs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.section').forEach(s => sectionObs.observe(s));
+
+        /* PROGRESS BARS — animate once */
+        const barObs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width') + '%';
+                });
+                barObs.unobserve(entry.target);
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('.skill-category').forEach(c => barObs.observe(c));
+
+        /* PROJECT FILTER */
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                document.querySelectorAll('.project-card').forEach(card => {
+                    const match = filter === 'all' || card.dataset.category === filter;
+                    if (match) {
+                        card.style.display = 'flex';
+                        card.style.flexDirection = 'column';
+                        requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = ''; });
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(14px)';
+                        setTimeout(() => { if (card.style.opacity === '0') card.style.display = 'none'; }, 320);
+                    }
+                });
+            });
+        });
+
+        /* WHATSAPP FORM */
         function sendWA(e) {
             e.preventDefault();
             const name = document.getElementById('f_name').value.trim();
             const email = document.getElementById('f_email').value.trim();
             const subject = document.getElementById('f_subject').value.trim();
             const msg = document.getElementById('f_msg').value.trim();
-            let text = `👋 *Hello Aman!*\n\n`;
-            text += `*Name:* ${name}\n`;
+            if (!name || !subject || !msg) return;
+            let text = `👋 *Hello Aman!*\n\n*Name:* ${name}\n`;
             if (email) text += `*Email:* ${email}\n`;
-            text += `*Subject:* ${subject}\n\n`;
-            text += `*Message:*\n${msg}\n\n`;
-            text += `_Sent from portfolio website_ ✦`;
+            text += `*Subject:* ${subject}\n\n*Message:*\n${msg}\n\n_Sent from portfolio website_ ✦`;
             window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(text)}`, '_blank');
             const btn = document.getElementById('waBtn');
-            const orig = btn.innerHTML;
-            btn.innerHTML = '<i class="fab fa-whatsapp"></i> Opening WhatsApp...';
-            btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+            const origHTML = btn.innerHTML;
+            btn.innerHTML = '✓ Opening WhatsApp…';
+            btn.classList.add('sending'); btn.disabled = true;
             setTimeout(() => {
-                btn.innerHTML = orig;
-                btn.style.background = '';
+                btn.innerHTML = origHTML;
+                btn.classList.remove('sending'); btn.disabled = false;
                 document.getElementById('contactForm').reset();
-            }, 3000);
+            }, 3500);
         }
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function () {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-            document.querySelector('.back-to-top').classList.toggle('visible', window.pageYOffset > 300);
-        });
-
-        // Sections fade-in animation
-        const sections = document.querySelectorAll('.section');
-        const fadeInSection = function () {
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                if (sectionTop < window.innerHeight * 0.8) {
-                    section.classList.add('visible');
-                }
-            });
-        };
-        window.addEventListener('scroll', fadeInSection);
-        window.addEventListener('load', fadeInSection);
-
-        // Progress bar animation
-        const progressBars = document.querySelectorAll('.progress-fill');
-        const animateProgressBars = function () {
-            progressBars.forEach(bar => {
-                const barTop = bar.getBoundingClientRect().top;
-                if (barTop < window.innerHeight * 0.8) {
-                    const width = bar.style.width || '0%';
-                    bar.style.width = '0';
-                    setTimeout(() => { bar.style.width = width; }, 100);
-                }
-            });
-        };
-        window.addEventListener('scroll', animateProgressBars);
-        window.addEventListener('load', animateProgressBars);
-
-        // Project Filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                const filter = this.getAttribute('data-filter');
-                projectCards.forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                        card.style.display = 'block';
-                        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 100);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => { card.style.display = 'none'; }, 300);
-                    }
-                });
-            });
-        });
-
-        // Back to top button
-        document.querySelector('.back-to-top').addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Mobile Menu
-        const menuBtn = document.querySelector('.menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-
-        if (menuBtn) {
-            menuBtn.addEventListener('click', function () {
-                navLinks.classList.toggle('active');
-                if (!document.getElementById('responsive-nav-style')) {
-                    const style = document.createElement('style');
-                    style.id = 'responsive-nav-style';
-                    style.innerHTML = `
-                        @media (max-width: 768px) {
-                            .nav-links.active {
-                                display: flex;
-                                flex-direction: column;
-                                position: absolute;
-                                top: 100%;
-                                left: 0; right: 0;
-                                background: white;
-                                padding: 1rem;
-                                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                                z-index: 1000;
-                                animation: slideDown 0.3s ease-out forwards;
-                            }
-                            @keyframes slideDown {
-                                from { opacity: 0; transform: translateY(-20px); }
-                                to { opacity: 1; transform: translateY(0); }
-                            }
-                        }
-                    `;
-                    document.head.appendChild(style);
-                }
-            });
-        }
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                }
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const navbarHeight = document.getElementById('navbar').offsetHeight;
-                    window.scrollTo({ top: target.offsetTop - navbarHeight, behavior: 'smooth' });
-                }
-            });
-        });
     </script>
 </body>
 
